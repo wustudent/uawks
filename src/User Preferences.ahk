@@ -21,7 +21,6 @@ IniRead, RemapCommandToControl, %ConfigFilename%, %SectionName%, RemapCommandToC
 IniRead, RemapCapsLockToControl, %ConfigFilename%, %SectionName%, RemapCapsLockToControl, 0
 IniRead, RemapRightOptionToFn, %ConfigFilename%, %SectionName%, RemapRightOptionToFn, 0
 IniRead, RemapLeftControlToWindows, %ConfigFilename%, %SectionName%, RemapLeftControlToWindows, 0
-IniRead, RemapRightControlToWindows, %ConfigFilename%, %SectionName%, RemapRightControlToWindows, 0
 IniRead, RemapControlBackquote, %ConfigFilename%, %SectionName%, RemapControlBackquote, 0
 
 ;;
@@ -89,12 +88,10 @@ SetPreference(name, newValue) {
 		if (newValue) {
 			SetPreference("RemapCommandToControl", 1)
 			SetPreference("RemapLeftControlToWindows", 1)
-			SetPreference("RemapRightControlToWindows", 1)
 			SetPreference("RemapControlBackquote", 1)
 		} else {
 			SetPreference("RemapCommandToControl", 0)
 			SetPreference("RemapLeftControlToWindows", 0)
-			SetPreference("RemapRightControlToWindows", 0)
 			SetPreference("RemapControlBackquote", 0)
 		}
 	}
@@ -115,7 +112,6 @@ RemapControlBackquoteMenuText        := "Use control-`` as control-shift-tab"
 RemapRightOptionToFnMenuText         := "Use right option key as an extra fn key"
 ;;                                   ---------------------------------------------
 RemapLeftControlToWindowsMenuText    := "Use left control as a Windows key"
-RemapRightControlToWindowsMenuText   := "Use right control as a Windows key"
 RemapCapsLockToControlMenuText       := "Use caps lock as an extra control key"
 ;;                                   ---------------------------------------------
 MediaControlsAreDefaultMenuText      := "Media keys work without holding fn"
@@ -135,7 +131,6 @@ if (ExpertMode) {
 	Menu, TRAY, add, %RemapRightOptionToFnMenuText%, RemapRightOptionToFnMenuHandler
 	Menu, TRAY, add,,
 	Menu, TRAY, add, %RemapLeftControlToWindowsMenuText%, RemapLeftControlToWindowsMenuHandler
-	Menu, TRAY, add, %RemapRightControlToWindowsMenuText%, RemapRightControlToWindowsMenuHandler
 	Menu, TRAY, add, %RemapCapsLockToControlMenuText%, RemapCapsLockToControlMenuHandler
 	Menu, TRAY, add, %RemapRightCommandToAltGrMenuText%, RemapRightCommandToAltGrMenuHandler
 	Menu, TRAY, add,,
@@ -154,7 +149,6 @@ if (ExpertMode) {
 	Menu, TRAY, add, Restart UAWKS, MenuRestart
 	Menu, TRAY, Default, Restart UAWKS
 }
-
 
 Goto SkipHandlers
 MenuQuit:
@@ -175,9 +169,6 @@ RemapCapsLockToControlMenuHandler:
 	return
 RemapLeftControlToWindowsMenuHandler:
 	TogglePreference("RemapLeftControlToWindows")
-	return
-RemapRightControlToWindowsMenuHandler:
-	TogglePreference("RemapRightControlToWindows")
 	return
 RemapRightOptionToFnMenuHandler:
 	TogglePreference("RemapRightOptionToFn")

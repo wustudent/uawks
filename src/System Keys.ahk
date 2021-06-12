@@ -4,10 +4,6 @@
 $*LCtrl::PreferenceKeyDown("LCtrl", "RemapLeftControlToWindows", "Control Up}{LWin")
 $*LCtrl Up::PreferenceKeyUp("LCtrl", "RemapLeftControlToWindows", "LWin")
 
-;; {Right Control} --> {Windows Key}
-$*RCtrl::PreferenceKeyDown("RCtrl", "RemapRightControlToWindows", "Control Up}{LWin")
-$*RCtrl Up::PreferenceKeyUp("RCtrl", "RemapRightControlToWindows", "LWin")
-
 ;; {Apple Command Key} --> {Control}
 $*LWin::PreferenceKeyDown("LWin", "RemapCommandToControl", "LCtrl")
 $*LWin Up::PreferenceKeyUp("LWin", "RemapCommandToControl", "LCtrl")

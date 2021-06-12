@@ -1,4 +1,4 @@
-
+#Include BrightnessSetter.ahk
 
 ;;
 ;; Wrapper Functions for Fn Sequences
@@ -79,7 +79,8 @@ PreferenceKeyFnUp(normalKey, pref) {
 VolumeMute(dummyVar="") {
     Send {Volume_Mute}
     GoSub, ProgressOff
-    ShowVolume()
+    ;ShowVolume()
+	VolumeOSD()
 }
 
 VolumeDown(dummyVar="") {
@@ -89,7 +90,8 @@ VolumeDown(dummyVar="") {
 		SoundGet, MasterVolume, Master, Volume
 		SoundSet, MasterVolume, Wave, Volume
 	}
-    ShowVolume()
+    ;ShowVolume()
+    VolumeOSD()
 }
 
 VolumeUp(dummyVar="") {
@@ -99,7 +101,8 @@ VolumeUp(dummyVar="") {
 		SoundGet, MasterVolume, Master, Volume
 		SoundSet, MasterVolume, Wave, Volume
 	}
-    ShowVolume()
+    ;ShowVolume()
+	VolumeOSD()
 }
 
 VolumeSet(NewVolume, UnMute = false) {
@@ -116,7 +119,8 @@ VolumeSet(NewVolume, UnMute = false) {
             GoSub, ProgressOff
         }
     }
-    ShowVolume()
+    ;ShowVolume()
+	VolumeOSD()
 }
 
 ProgressOff:
@@ -223,3 +227,25 @@ MediaCommandNext(dummyVar="") {
 		Send, {Media_Next}
 }
 
+
+VolumeOSD() {
+	try if ((shellProvider := ComObjCreate("{C2F03A33-21F5-47FA-B4BB-156362A2F239}", "{00000000-0000-0000-C000-000000000046}"))) {
+				try if ((flyoutDisp := ComObjQuery(shellProvider, "{41f9d2fb-7834-4ab6-8b1b-73e74064b465}", "{41f9d2fb-7834-4ab6-8b1b-73e74064b465}"))) {
+					 DllCall(NumGet(NumGet(flyoutDisp+0)+3*A_PtrSize), "Ptr", flyoutDisp, "Int", 0, "UInt", 0)
+					,ObjRelease(flyoutDisp)
+				}
+				ObjRelease(shellProvider)
+	}
+}
+
+BrightnessUp(dummyVar="") {
+    BrightnessSetter.SetBrightness(+3)
+}
+
+BrightnessDown(dummyVar="") {
+	BrightnessSetter.SetBrightness(-3)
+}
+
+OpenTaskManager(){
+	run taskmgr.exe
+}
